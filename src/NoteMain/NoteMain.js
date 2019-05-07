@@ -15,7 +15,7 @@ export default function NoteMain(props) {
                         <li key={note.id} className="NoteMain__list-item">
                           <h4 className="MainMain__note-link">{note.name}</h4>
                           <p>Date Modified on <Moment format="Do MMM YYYY">{note.modified}</Moment></p>
-                      </li>
+                        </li>
                       </ul>
                       <p className="NoteMain__content">{note.content}</p>
                     </>
