@@ -18,25 +18,31 @@ class App extends React.Component {
     }
   }
 
+  // fake api call for the dummy store
   componentDidMount() {
     setTimeout(() => {
       this.setState(DATA)
     }, 600);
   }
 
+  // this filters through the notes to find the note 
+  // associated with the current selected note
   findNote(notes, noteId) {
     console.log( 'noteId variable:', noteId)
     return (!noteId) ?  notes 
           : notes.filter(note => note.id === noteId )[0];
   }
 
+  // filters the folder needed to pull the folder name
+  // for the folder belonging to an individual note
   findFolder(folders, folderId) {
     console.log(folderId)
     return (!folderId) ? folders  
           : folders.filter(folder => folder.id === folderId)[0];
   }
 
-  
+  // maps over the sidebar routes to render the routes
+  // without having to type each out concise, less verbose
   renderSidebarRoutes() {
     const { notes, folders } = this.state
     return (
@@ -75,12 +81,15 @@ class App extends React.Component {
     )
   }
 
+  // function to filter out the notes that are associated
+  // with the folder
   getNotesForFolder(notes, folderId) {
     return (!folderId) ? notes
       : notes.filter(note => note.folderId === folderId);
   }
 
-
+  // map across the different routes to create the routes
+  // without having to list them each in the render
   renderMainRoutes() {
     const { notes, folders } = this.state
     return (

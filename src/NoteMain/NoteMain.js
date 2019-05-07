@@ -3,8 +3,12 @@ import Moment from 'react-moment'
 import './NoteMain.css'
 
 export default function NoteMain(props) {
+
+  // destructure the note from props
   const { note } = props
-  console.log('NoteMain props:', note)
+
+  // conditionally render the note section as
+  // the props are created undefined before the call
   const noteItem = (!note) ? null 
                   : <>
                       <ul className="NoteMain__list">
@@ -17,6 +21,9 @@ export default function NoteMain(props) {
                     </>
         
   return (
+
+    // render the main section and then the conditionally
+    // note information from the constant noteItem
     <section className="NoteMain">
       {noteItem}
     </section>
