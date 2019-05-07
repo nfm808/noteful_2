@@ -41,6 +41,13 @@ class App extends React.Component {
           : folders.filter(folder => folder.id === folderId)[0];
   }
 
+  // function to filter out the notes that are associated
+  // with the folder
+  getNotesForFolder(notes, folderId) {
+    return (!folderId) ? notes
+      : notes.filter(note => note.folderId === folderId);
+  }
+
   // maps over the sidebar routes to render the routes
   // without having to type each out concise, less verbose
   renderSidebarRoutes() {
@@ -79,13 +86,6 @@ class App extends React.Component {
         />
       </>
     )
-  }
-
-  // function to filter out the notes that are associated
-  // with the folder
-  getNotesForFolder(notes, folderId) {
-    return (!folderId) ? notes
-      : notes.filter(note => note.folderId === folderId);
   }
 
   // map across the different routes to create the routes

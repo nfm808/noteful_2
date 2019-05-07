@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import './MainSidebar.css'
 
 function MainSidebar(props) {
@@ -20,6 +20,16 @@ function MainSidebar(props) {
           </li>  
         )}
       </ul>
+      <div className="MainSidebar__button-container">
+        <button 
+          className="MainSidebar__add-folder-button"
+          tag={Link}
+          to='/add-folder'
+          type='button'
+        >
+          Add Folder
+        </button>
+      </div>
     </section>
   )
 }
