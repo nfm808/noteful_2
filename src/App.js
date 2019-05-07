@@ -5,6 +5,7 @@ import DATA from './dummy-store'
 import MainSidebar from './MainSidebar/MainSidebar'
 import NoteSidebar from './NoteSidebar/NoteSidebar'
 import MainMain from './MainMain/MainMain'
+import NoteMain from './NoteMain/NoteMain'
 
 class App extends React.Component {
   constructor(props) {
@@ -101,7 +102,7 @@ class App extends React.Component {
             }}
           />
         )}
-        {/* <Route 
+        <Route 
           path='/note/:noteId'
           render={routeProps => {
             const { noteId } = routeProps.match.params
@@ -113,7 +114,7 @@ class App extends React.Component {
               />
             )
           }}
-        /> */}
+        />
       </>
     )
   }
