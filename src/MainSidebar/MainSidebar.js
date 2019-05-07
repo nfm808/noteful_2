@@ -7,7 +7,7 @@ function MainSidebar(props) {
   console.log( folders, notes);
 
   return (
-    <div className='MainSidebar'>
+    <section className='MainSidebar'>
       <ul className='MainSidebar__list'>
         {folders.map(folder =>
           <li key={folder.id}>
@@ -20,7 +20,7 @@ function MainSidebar(props) {
           </li>  
         )}
       </ul>
-    </div>
+    </section>
   )
 }
 
