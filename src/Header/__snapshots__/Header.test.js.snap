@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header component renders the UI as expected 1`] = `
+<header
+  className="App__header"
+>
+  <h1>
+    test title
+  </h1>
+</header>
+`;

@@ -9,4 +9,11 @@ describe('Header component', () => {
     ReactDOM.render(<Header title='Noteful' />, div);
     ReactDOM.unmountComponentAtNode(div);
   })
+
+  it('renders the UI as expected', () => {
+    const tree = renderer
+      .create(<Header title='test title' />)
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  })
 })
