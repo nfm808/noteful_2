@@ -3,6 +3,7 @@ import { Route, Link } from 'react-router-dom';
 import './App.css';
 import DATA from './dummy-store'
 import MainSidebar from './MainSidebar/MainSidebar'
+import NoteSidebar from './NoteSidebar/NoteSidebar'
 import MainMain from './MainMain/MainMain'
 
 class App extends React.Component {
@@ -21,6 +22,19 @@ class App extends React.Component {
       this.setState(DATA)
     }, 600);
   }
+
+  findNote(notes, noteId) {
+    console.log( 'noteId variable:', noteId)
+    return (!noteId) ?  notes 
+          : notes.filter(note => note.id === noteId )[0];
+  }
+
+  findFolder(folders, folderId) {
+    console.log(folderId)
+    return (!folderId) ? folders  
+          : folders.filter(folder => folder.id === folderId)[0];
+  }
+
   
   renderSidebarRoutes() {
     const { notes, folders } = this.state
@@ -40,20 +54,22 @@ class App extends React.Component {
             }
           />
         )}
-        {/* <Route 
+        <Route 
           path='/note/:noteId'
           render={routeProps => { 
             const { noteId } = routeProps.match.params
             const note = this.findNote(notes, noteId) || {}
             const folder = this.findFolder(folders, note.folderId)
+            console.log('folder function resultes:', folder)
             return (
               <NoteSidebar 
                 {...routeProps}
                 folder={folder}
+                note={note}
               />
             )
           }}
-        /> */}
+        />
       </>
     )
   }
@@ -62,6 +78,7 @@ class App extends React.Component {
     return (!folderId) ? notes
       : notes.filter(note => note.folderId === folderId);
   }
+
 
   renderMainRoutes() {
     const { notes, folders } = this.state
@@ -84,19 +101,19 @@ class App extends React.Component {
             }}
           />
         )}
-        <Route 
+        {/* <Route 
           path='/note/:noteId'
           render={routeProps => {
             const { noteId } = routeProps.match.params
             const note = this.findNote(notes, noteId)
             return (
-              <MainMain 
+              <NoteMain 
                 {...routeProps}
                 note={note}
               />
             )
           }}
-        />
+        /> */}
       </>
     )
   }
