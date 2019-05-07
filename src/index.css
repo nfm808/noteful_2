@@ -6,6 +6,11 @@
   text-decoration: none;
 }
 
+a {
+  color: black;
+  cursor: pointer;
+}
+
 body {
   margin: 0;
   padding: 0;
