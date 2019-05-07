@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Link } from 'react-router-dom';
 import './App.css';
 import DATA from './dummy-store'
+import MainSidebar from './MainSidebar/MainSidebar'
 
 class App extends React.Component {
   constructor(props) {
@@ -16,13 +17,32 @@ class App extends React.Component {
 
   componentDidMount() {
     setTimeout(() => {
-      this.setState({
-        folders: DATA.folders,
-        notes: DATA.notes
-      })
+      this.setState(DATA)
     }, 600);
   }
   
+  renderSidebarRoutes() {
+    const { notes, folders } = this.state
+    return (
+      <>
+        {['/', '/folder/:folderId'].map(path => 
+          <Route  
+            exact
+            key={path}
+            path={path}
+            render={routeProps =>
+              <MainSidebar
+                folders={folders}
+                notes={notes}
+                {...routeProps}
+              />
+            }
+          />
+        )}
+      </>
+    )
+  }
+
   render() {
 
     return (
@@ -30,6 +50,7 @@ class App extends React.Component {
         <header className="App__header">
           <h1><Link to="/">Noteful</Link></h1>
         </header>
+        {this.renderSidebarRoutes()}
       </div>
     )
   }
