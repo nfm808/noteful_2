@@ -1,6 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
-import Header from './Header/Header';
+import { Route, Link } from 'react-router-dom';
 import './App.css';
 import DATA from './dummy-store'
 
@@ -28,7 +27,9 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <Header title='Noteful' />
+        <header className="App__header">
+          <h1><Link to="/">Noteful</Link></h1>
+        </header>
       </div>
     )
   }
