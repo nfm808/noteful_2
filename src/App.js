@@ -6,6 +6,7 @@ import MainSidebar from './MainSidebar/MainSidebar'
 import NoteSidebar from './NoteSidebar/NoteSidebar'
 import MainMain from './MainMain/MainMain'
 import NoteMain from './NoteMain/NoteMain'
+import { getNotesForFolder, findNote, findFolder } from './notes-helpers'
 
 class App extends React.Component {
   constructor(props) {
@@ -23,29 +24,6 @@ class App extends React.Component {
     setTimeout(() => {
       this.setState(DATA)
     }, 600);
-  }
-
-  // this filters through the notes to find the note 
-  // associated with the current selected note
-  findNote(notes, noteId) {
-    console.log( 'noteId variable:', noteId)
-    return (!noteId) ?  notes 
-          : notes.filter(note => note.id === noteId )[0];
-  }
-
-  // filters the folder needed to pull the folder name
-  // for the folder belonging to an individual note
-  findFolder(folders, folderId) {
-    console.log(folderId)
-    return (!folderId) ? folders  
-          : folders.filter(folder => folder.id === folderId)[0];
-  }
-
-  // function to filter out the notes that are associated
-  // with the folder
-  getNotesForFolder(notes, folderId) {
-    return (!folderId) ? notes
-      : notes.filter(note => note.folderId === folderId);
   }
 
   // maps over the sidebar routes to render the routes
@@ -72,8 +50,8 @@ class App extends React.Component {
           path='/note/:noteId'
           render={routeProps => { 
             const { noteId } = routeProps.match.params
-            const note = this.findNote(notes, noteId) || {}
-            const folder = this.findFolder(folders, note.folderId)
+            const note = findNote(notes, noteId) || {}
+            const folder = findFolder(folders, note.folderId)
             console.log('folder function resultes:', folder)
             return (
               <NoteSidebar 
@@ -101,7 +79,7 @@ class App extends React.Component {
             path={path}
             render={routeProps => {
               const { folderId } = routeProps.match.params
-              const notesForFolder = this.getNotesForFolder(notes, folderId)
+              const notesForFolder = getNotesForFolder(notes, folderId)
               return (
                 <MainMain
                   {...routeProps}
@@ -115,7 +93,7 @@ class App extends React.Component {
           path='/note/:noteId'
           render={routeProps => {
             const { noteId } = routeProps.match.params
-            const note = this.findNote(notes, noteId)
+            const note = findNote(notes, noteId)
             return (
               <NoteMain 
                 {...routeProps}
