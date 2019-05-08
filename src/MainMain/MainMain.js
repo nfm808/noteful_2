@@ -17,7 +17,17 @@ export default function MainMain(props) {
             >
               {note.name}
             </NavLink>
-            <p>Date Modified on <Moment format="Do MMM YYYY">{note.modified}</Moment></p>
+            <div className="MainMain__mod-delete">
+              <p className="modded-date">Date Modified on <Moment format="Do MMM YYYY">{note.modified}</Moment></p>
+              <div className="MainMain__button-container">
+                <button 
+                  className="MainMain__add-note-button inline"
+                  type="button"
+                >
+                Delete Note
+                </button>
+              </div>
+            </div>
           </li>
         )}
         <div className="MainMain__button-container">
