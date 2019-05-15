@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
 import './App.css';
-import DATA from './dummy-store'
+import NotesContext from './notesContext'
 import MainSidebar from './MainSidebar/MainSidebar'
 import NoteSidebar from './NoteSidebar/NoteSidebar'
 import MainMain from './MainMain/MainMain'
@@ -19,12 +19,29 @@ class App extends React.Component {
     }
   }
 
-  // fake api call for the dummy store
+  // api call for the json server
   componentDidMount() {
-    setTimeout(() => {
-      this.setState(DATA)
-    }, 600);
+    fetch('http://localhost:9090/db')
+      .then((response) => {
+        if(!response.ok) {
+          throw new Error('something went wrong')
+        }
+        return response;
+      })
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          notes: data.notes,
+          folders: data.folders
+        });
+      })
+      .catch(err => {
+        this.setState({
+          err: err.message
+        });
+      });
   }
+
 
   // maps over the sidebar routes to render the routes
   // without having to type each out concise, less verbose
@@ -107,17 +124,22 @@ class App extends React.Component {
   }
 
   render() {
-
+    const contextValue = {
+      folders: this.state.folders,
+      notes: this.state.notes,
+    }
     return (
-      <div className="App">
-        <header className="App__header">
-          <h1><Link to="/">Noteful</Link></h1>
-        </header>
-        <section className="App__main">
-          {this.renderSidebarRoutes()}
-          {this.renderMainRoutes()}
-        </section>
-      </div>
+      <NotesContext.Provider value={contextValue}>
+        <div className="App">
+          <header className="App__header">
+            <h1><Link to="/">Noteful</Link></h1>
+          </header>
+          <section className="App__main">
+            {this.renderSidebarRoutes()}
+            {this.renderMainRoutes()}
+          </section>
+        </div>
+      </NotesContext.Provider>
     )
   }
 

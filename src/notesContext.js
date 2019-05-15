@@ -1,8 +1,8 @@
 import React from 'react';
 
 const NotesContext = React.createContext({
-  folders: [],
-  notes: [],
+  folders: [{}],
+  notes: [{}],
   addNote: () => {},
   deleteNote: () => {},
 });
