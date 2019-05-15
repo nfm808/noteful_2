@@ -21,25 +21,23 @@ class App extends React.Component {
 
   // api call for the json server
   componentDidMount() {
-    fetch('http://localhost:9090/db')
-      .then((response) => {
-        if(!response.ok) {
-          throw new Error('something went wrong')
-        }
-        return response;
+    const notes = fetch('http://localhost:9090/notes');
+    const folders = fetch('http://localhost:9090/folders');
+    Promise.all([notes, folders])
+      .then((res) => {
+        Promise.all(res.map(r => r.json()))
+        .then(([noteData, folderData]) => {
+          this.setState({
+            notes: noteData,
+            folders: folderData
+          });
+        })
       })
-      .then(response => response.json())
-      .then(data => {
+      .catch((err) => {
         this.setState({
-          notes: data.notes,
-          folders: data.folders
+          err: err
         });
       })
-      .catch(err => {
-        this.setState({
-          err: err.message
-        });
-      });
   }
 
 
