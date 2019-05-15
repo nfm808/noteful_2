@@ -13,8 +13,8 @@ class App extends React.Component {
     super(props)
   
     this.state = {
-       notes: [],
-       folders: [],
+       notes: null,
+       folders: null,
        err: null
     }
   }
@@ -23,26 +23,25 @@ class App extends React.Component {
   componentDidMount() {
     const notes = fetch('http://localhost:9090/notes');
     const folders = fetch('http://localhost:9090/folders');
-
-    // creates a super promise of the two fetch calls
-    // and places them in an array
     Promise.all([notes, folders])
-      .then((res) => {
-        Promise.all(res.map(r => r.json()))
-        .then(([noteData, folderData]) => {
-          this.setState({
-            notes: noteData,
-            folders: folderData
-          });
+      .then(([notesResponse, foldersResponse]) => {
+        if(!notesResponse.ok || !foldersResponse.ok) {
+          throw new Error('Something went wrong');
+        }
+        return Promise.all([notesResponse.json(), foldersResponse.json()])
+      })
+      .then(([notesData, foldersData]) => {
+        this.setState({
+          notes: notesData,
+          folders: foldersData
         })
       })
-      .catch((err) => {
+      .catch(error => {
         this.setState({
-          err: err
-        });
+          err: error.message
+        })
       })
   }
-
 
   // maps over the sidebar routes to render the routes
   // without having to type each out concise, less verbose
@@ -55,30 +54,32 @@ class App extends React.Component {
             exact
             key={path}
             path={path}
-            render={routeProps =>
-              <MainSidebar
-                folders={folders}
-                notes={notes}
-                {...routeProps}
-              />
-            }
+            component={MainSidebar}
+            // render={routeProps =>
+            //   <MainSidebar
+            //     folders={folders}
+            //     notes={notes}
+            //     {...routeProps}
+            //   />
+            // }
           />
         )}
         <Route 
           path='/note/:noteId'
-          render={routeProps => { 
-            const { noteId } = routeProps.match.params
-            const note = findNote(notes, noteId) || {}
-            const folder = findFolder(folders, note.folderId)
-            console.log('folder function resultes:', folder)
-            return (
-              <NoteSidebar 
-                {...routeProps}
-                folder={folder}
-                note={note}
-              />
-            )
-          }}
+          component={NoteSidebar}
+          // render={routeProps => { 
+          //   const { noteId } = routeProps.match.params
+          //   const note = findNote(notes, noteId) || {}
+          //   const folder = findFolder(folders, note.folderId)
+          //   console.log('folder function resultes:', folder)
+          //   return (
+          //     <NoteSidebar 
+          //       {...routeProps}
+          //       folder={folder}
+          //       note={note}
+          //     />
+          //   )
+          // }}
         />
       </>
     )
@@ -95,30 +96,32 @@ class App extends React.Component {
             exact
             key={path}
             path={path}
-            render={routeProps => {
-              const { folderId } = routeProps.match.params
-              const notesForFolder = getNotesForFolder(notes, folderId)
-              return (
-                <MainMain
-                  {...routeProps}
-                  notes={notesForFolder}
-                />
-              )
-            }}
+            component={MainMain}
+            // render={routeProps => {
+            //   const { folderId } = routeProps.match.params
+            //   const notesForFolder = getNotesForFolder(notes, folderId)
+            //   return (
+            //     <MainMain
+            //       {...routeProps}
+            //       notes={notesForFolder}
+            //     />
+            //   )
+            // }}
           />
         )}
         <Route 
           path='/note/:noteId'
-          render={routeProps => {
-            const { noteId } = routeProps.match.params
-            const note = findNote(notes, noteId)
-            return (
-              <NoteMain 
-                {...routeProps}
-                note={note}
-              />
-            )
-          }}
+          component={NoteMain}
+          // render={routeProps => {
+          //   const { noteId } = routeProps.match.params
+          //   const note = findNote(notes, noteId)
+          //   return (
+          //     <NoteMain 
+          //       {...routeProps}
+          //       note={note}
+          //     />
+          //   )
+          // }}
         />
       </>
     )
@@ -128,6 +131,10 @@ class App extends React.Component {
     const contextValue = {
       folders: this.state.folders,
       notes: this.state.notes,
+      addNote: this.addNote,
+      addFolder: this.addFolder,
+      deleteFolder: this.deleteFolder,
+      deleteNote: this.deleteNote
     }
     return (
       <NotesContext.Provider value={contextValue}>
