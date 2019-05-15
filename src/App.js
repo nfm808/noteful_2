@@ -23,6 +23,9 @@ class App extends React.Component {
   componentDidMount() {
     const notes = fetch('http://localhost:9090/notes');
     const folders = fetch('http://localhost:9090/folders');
+
+    // creates a super promise of the two fetch calls
+    // and places them in an array
     Promise.all([notes, folders])
       .then((res) => {
         Promise.all(res.map(r => r.json()))
