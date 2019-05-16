@@ -1,6 +1,5 @@
 import React from 'react'
-import { NavLink, Link } from 'react-router-dom'
-import Moment from 'react-moment'
+import Note from '../Note/Note'
 import NotesContext from '../notesContext'
 import { getNotesForFolder } from '../notes-helpers'
 import './MainMain.css'
@@ -19,24 +18,11 @@ import './MainMain.css'
             :  <ul className="MainMain__list">
             {notesForFolder.map(note =>
               <li key={note.id} className="MainMain__list-item">
-                <NavLink 
-                  to={`/note/${note.id}`}
-                  className="MainMain__note-link"
-                >
-                  {note.name}
-                </NavLink>
-                <div className="MainMain__mod-delete">
-                  <p className="modded-date">Date Modified on <Moment format="Do MMM YYYY">{note.modified}</Moment></p>
-                  <div className="MainMain__button-container">
-                    <button 
-                      className="MainMain__add-note-button"
-                      type="button"
-                    >
-                    Delete Note
-                    </button>
-                  </div>
-
-                </div>
+                <Note 
+                  id={note.id}
+                  name={note.name}
+                  modified={note.modified}
+                />
               </li>
             )}
             <div className="MainMain__button-container">

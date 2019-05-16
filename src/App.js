@@ -21,6 +21,9 @@ class App extends React.Component {
 
   // api call for the json server
   componentDidMount() {
+    // this promise all creates a grouping of multiple
+    // fetch calls to get multiple endpoints and organizes
+    // them into an array
     Promise.all([
       fetch(`${config.API_ENDPOINT}/notes`),
       fetch(`${config.API_ENDPOINT}/folders`)
@@ -30,6 +33,8 @@ class App extends React.Component {
         'Accept': 'application/json'
       }
     })
+    // we then take the responses and organize them
+    // into an array at assigned positions
     .then(([notesRes, foldersRes]) =>{
       if (!notesRes.ok) {
         console.log('Notes error')
@@ -60,7 +65,11 @@ class App extends React.Component {
   }
 
   handleDeleteNote = noteId => {
-    console.log(noteId);
+    // here we update the state to remove the deleted
+    // note
+    this.setState({
+      notes: this.state.notes.filter(note=> note.id !== noteId)
+    });
   }
   // maps over the sidebar routes to render the routes
   // without having to type each out concise, less verbose

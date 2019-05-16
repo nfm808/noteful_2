@@ -1,6 +1,8 @@
 import React from 'react'
-import { NavLink, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import NotesContext from '../notesContext';
+import config from '../config'
+import Moment from 'react-moment'
 
 class Note extends React.Component {
   static defaultProps = {
@@ -12,7 +14,7 @@ class Note extends React.Component {
     e.preventDefault();
     const noteId = this.props.id;
 
-    fetch(`http://localhost:9090/notes/${noteId}`, {
+    fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
       method: 'DELETE',
       headers: {
         'content-type': 'application/json'
@@ -33,9 +35,29 @@ class Note extends React.Component {
       })      
   }
   render() {
+    const { name, id, modified } = this.props
     return (
-      <div>
-        
+      <div className='Note'>
+        <h2 className='Note__title'>
+          <Link to={`/note/${id}`}>
+            {name}
+          </Link>
+        </h2>
+        <button 
+          className='Note__delete'
+          type='button'
+          onClick={this.handleClickDelete}
+          >
+            Delete
+          </button>
+          <div className="Note__dates">
+            <div className='Note__dates-modified'>
+              Modified {' '}
+              <span className='Date'>
+                <Moment format="Do MMM YYYY">{modified}</Moment>
+              </span>
+            </div>
+          </div>        
       </div>
     )
   }

@@ -1,5 +1,5 @@
 import React from 'react'
-import Moment from 'react-moment'
+import Note from '../Note/Note'
 import { findNote } from '../notes-helpers'
 import './NoteMain.css'
 import NotesContext from '../notesContext';
@@ -8,32 +8,28 @@ class NoteMain extends React.Component {
 
   static contextType = NotesContext;
 
+  handleDeleteNote = noteId => {
+    this.props.history.push('/')
+  }
+
   render() {  
     
       // destructure the note from props
     const { notes } = this.context
     const { noteId } = this.props.match.params
-    const note = findNote(notes, noteId);
+    const note = findNote(notes, noteId) || {content: ''};
 
     // conditionally render the note section as
     // the props are created undefined before the call
     const noteItem = (!note) ? null 
                     : <>
                         <ul className="NoteMain__list">
-                          <li key={note.id} className="NoteMain__list-item">
-                            <h4 className="MainMain__note-link">{note.name}</h4>
-                            <p>Date Modified on <Moment format="Do MMM YYYY">{note.modified}</Moment></p>
-                            
-                            <div className="MainMain__button-container">
-                              <button 
-                               
-                                className="MainMain__add-note-button"
-                                type="button"
-                              >
-                              Delete Note
-                              </button>
-                            </div>
-                          </li>
+                          <Note 
+                            id={note.id}
+                            name={note.name}
+                            modified={note.modified}
+                            onDeleteNote={this.handleDeleteNote}
+                          />
                         </ul>
                         <p className="NoteMain__content">{note.content}</p>
                       </>
