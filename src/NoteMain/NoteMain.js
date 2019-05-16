@@ -23,6 +23,16 @@ class NoteMain extends React.Component {
                           <li key={note.id} className="NoteMain__list-item">
                             <h4 className="MainMain__note-link">{note.name}</h4>
                             <p>Date Modified on <Moment format="Do MMM YYYY">{note.modified}</Moment></p>
+                            
+                            <div className="MainMain__button-container">
+                              <button 
+                               
+                                className="MainMain__add-note-button"
+                                type="button"
+                              >
+                              Delete Note
+                              </button>
+                            </div>
                           </li>
                         </ul>
                         <p className="NoteMain__content">{note.content}</p>

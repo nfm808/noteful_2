@@ -14,7 +14,7 @@ import './MainMain.css'
     // from context and props
     const { notes } = this.context;
     const { folderId } = this.props.match.params;
-    const notesForFolder = (!notes) ? null : getNotesForFolder(notes, folderId);
+    const notesForFolder =  getNotesForFolder(notes, folderId);
     const list = (!notes) ? null 
             :         <ul className="MainMain__list">
             {notesForFolder.map(note =>
@@ -29,12 +29,13 @@ import './MainMain.css'
                   <p className="modded-date">Date Modified on <Moment format="Do MMM YYYY">{note.modified}</Moment></p>
                   <div className="MainMain__button-container">
                     <button 
-                      className="MainMain__add-note-button inline"
+                      className="MainMain__add-note-button"
                       type="button"
                     >
                     Delete Note
                     </button>
                   </div>
+
                 </div>
               </li>
             )}

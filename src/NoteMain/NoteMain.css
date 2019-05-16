@@ -5,6 +5,9 @@
 
 }
 .NoteMain__list {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
   width: 95%;
   height: 100px;
   border: 1px solid black;
@@ -21,4 +24,10 @@
   width: 95%;
   height: auto;
   margin: 5px auto;
+}
+.inline {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }

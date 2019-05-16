@@ -124,6 +124,10 @@ class App extends React.Component {
     )
   }
 
+  deleteNote = () => {
+    console.log('button clicked');
+  }
+
   render() {
     const contextValue = {
       folders: this.state.folders,
