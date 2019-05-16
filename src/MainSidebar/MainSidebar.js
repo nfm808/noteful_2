@@ -30,7 +30,7 @@ class MainSidebar extends React.Component {
         {list}
           <button 
             className="MainSidebar__add-folder-button"
-            tag={Link}
+            // tag={Link}
             to='/add-folder'
             type='button'
           >

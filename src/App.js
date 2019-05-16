@@ -6,6 +6,7 @@ import MainSidebar from './MainSidebar/MainSidebar'
 import NoteSidebar from './NoteSidebar/NoteSidebar'
 import MainMain from './MainMain/MainMain'
 import NoteMain from './NoteMain/NoteMain'
+import config from './config'
 
 class App extends React.Component {
   constructor(props) {
@@ -20,28 +21,47 @@ class App extends React.Component {
 
   // api call for the json server
   componentDidMount() {
-    const notes = fetch('http://localhost:9090/notes');
-    const folders = fetch('http://localhost:9090/folders');
-    Promise.all([notes, folders])
-      .then(([notesResponse, foldersResponse]) => {
-        if(!notesResponse.ok || !foldersResponse.ok) {
-          throw new Error('Something went wrong');
-        }
-        return Promise.all([notesResponse.json(), foldersResponse.json()])
-      })
-      .then(([notesData, foldersData]) => {
-        this.setState({
-          notes: notesData,
-          folders: foldersData
-        })
-      })
-      .catch(error => {
-        this.setState({
-          err: error.message
-        })
-      })
+    Promise.all([
+      fetch(`${config.API_ENDPOINT}/notes`),
+      fetch(`${config.API_ENDPOINT}/folders`)
+    ], {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    .then(([notesRes, foldersRes]) =>{
+      if (!notesRes.ok) {
+        console.log('Notes error')
+        return notesRes.json().then(e => Promise.reject(e))
+      }
+      if (!foldersRes.ok) {
+        console.log('folders error')
+        return foldersRes.json().then(e => Promise.reject(e))
+      }
+      return Promise.all([
+        notesRes.json(),
+        foldersRes.json()
+      ])
+    })
+    .then(([notes, folders]) => {
+      this.setState({ notes, folders })
+    })
+    .catch(error => {
+      console.error({ error })
+    })
+  }
+  handleAddFolder = folder => {
+    console.log(folder);
   }
 
+  handleAddNote = note => {
+    console.log(note);
+  }
+
+  handleDeleteNote = noteId => {
+    console.log(noteId);
+  }
   // maps over the sidebar routes to render the routes
   // without having to type each out concise, less verbose
   renderSidebarRoutes() {
@@ -124,18 +144,14 @@ class App extends React.Component {
     )
   }
 
-  deleteNote = () => {
-    console.log('button clicked');
-  }
 
   render() {
     const contextValue = {
       folders: this.state.folders,
       notes: this.state.notes,
-      addNote: this.addNote,
-      addFolder: this.addFolder,
-      deleteFolder: this.deleteFolder,
-      deleteNote: this.deleteNote
+      addFolder: this.handleAddFolder,
+      addNote: this.handleAddNote,
+      deleteNote: this.handleDeleteNote,
     }
     return (
       <NotesContext.Provider value={contextValue}>

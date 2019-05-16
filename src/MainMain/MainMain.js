@@ -16,7 +16,7 @@ import './MainMain.css'
     const { folderId } = this.props.match.params;
     const notesForFolder =  getNotesForFolder(notes, folderId);
     const list = (!notes) ? null 
-            :         <ul className="MainMain__list">
+            :  <ul className="MainMain__list">
             {notesForFolder.map(note =>
               <li key={note.id} className="MainMain__list-item">
                 <NavLink 
@@ -42,7 +42,7 @@ import './MainMain.css'
             <div className="MainMain__button-container">
               <button 
                 className="MainMain__add-note-button"
-                tag={Link}
+                // tag={Link}
                 to='/add-note'
                 type='button'
               >
