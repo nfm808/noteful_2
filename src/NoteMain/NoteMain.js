@@ -1,31 +1,43 @@
 import React from 'react'
 import Moment from 'react-moment'
+import { findNote } from '../notes-helpers'
 import './NoteMain.css'
+import NotesContext from '../notesContext';
 
-export default function NoteMain(props) {
+class NoteMain extends React.Component {
 
-  // destructure the note from props
-  const { note } = props
+  static contextType = NotesContext;
 
-  // conditionally render the note section as
-  // the props are created undefined before the call
-  const noteItem = (!note) ? null 
-                  : <>
-                      <ul className="NoteMain__list">
-                        <li key={note.id} className="NoteMain__list-item">
-                          <h4 className="MainMain__note-link">{note.name}</h4>
-                          <p>Date Modified on <Moment format="Do MMM YYYY">{note.modified}</Moment></p>
-                        </li>
-                      </ul>
-                      <p className="NoteMain__content">{note.content}</p>
-                    </>
-        
-  return (
+  render() {  
+    
+      // destructure the note from props
+    const { notes } = this.context
+    const { noteId } = this.props.match.params
+    const note = findNote(notes, noteId);
 
-    // render the main section and then the conditionally
-    // note information from the constant noteItem
-    <section className="NoteMain">
-      {noteItem}
-    </section>
-  )
+    // conditionally render the note section as
+    // the props are created undefined before the call
+    const noteItem = (!note) ? null 
+                    : <>
+                        <ul className="NoteMain__list">
+                          <li key={note.id} className="NoteMain__list-item">
+                            <h4 className="MainMain__note-link">{note.name}</h4>
+                            <p>Date Modified on <Moment format="Do MMM YYYY">{note.modified}</Moment></p>
+                          </li>
+                        </ul>
+                        <p className="NoteMain__content">{note.content}</p>
+                      </>
+
+
+    return (
+
+      // render the main section and then the conditionally
+      // note information from the constant noteItem
+      <section className="NoteMain">
+        {noteItem}
+      </section>
+    )
+  }
 }
+
+export default NoteMain

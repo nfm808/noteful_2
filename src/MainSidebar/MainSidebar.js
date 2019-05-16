@@ -7,7 +7,7 @@ class MainSidebar extends React.Component {
   static contextType = NotesContext;
   render() {
     const { folders, notes } = this.context;
-    console.log( folders, notes);
+    // console.log( folders, notes);
 
     const list = (!folders || !notes) ? null 
                 :  <ul className='MainSidebar__list'>

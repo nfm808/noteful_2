@@ -14,7 +14,7 @@ import './MainMain.css'
     // from context and props
     const { notes } = this.context;
     const { folderId } = this.props.match.params;
-    const notesForFolder = getNotesForFolder(notes, folderId);
+    const notesForFolder = (!notes) ? null : getNotesForFolder(notes, folderId);
     const list = (!notes) ? null 
             :         <ul className="MainMain__list">
             {notesForFolder.map(note =>

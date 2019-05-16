@@ -6,7 +6,6 @@ import MainSidebar from './MainSidebar/MainSidebar'
 import NoteSidebar from './NoteSidebar/NoteSidebar'
 import MainMain from './MainMain/MainMain'
 import NoteMain from './NoteMain/NoteMain'
-import { getNotesForFolder, findNote, findFolder } from './notes-helpers'
 
 class App extends React.Component {
   constructor(props) {
@@ -46,7 +45,6 @@ class App extends React.Component {
   // maps over the sidebar routes to render the routes
   // without having to type each out concise, less verbose
   renderSidebarRoutes() {
-    const { notes, folders } = this.state
     return (
       <>
         {['/', '/folder/:folderId'].map(path => 
@@ -88,7 +86,6 @@ class App extends React.Component {
   // map across the different routes to create the routes
   // without having to list them each in the render
   renderMainRoutes() {
-    const { notes, folders } = this.state
     return (
       <>
         {['/', '/folder/:folderId'].map(path =>
