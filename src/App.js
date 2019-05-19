@@ -58,7 +58,12 @@ class App extends React.Component {
     })
   }
   handleAddFolder = folder => {
-    console.log(folder);
+    const { folders } = this.state;
+    this.setState({
+      folders : [...folders, folder]
+    })
+    console.log('folders:', folders)
+    console.log('folder', folder.value)
   }
 
   handleAddNote = note => {
