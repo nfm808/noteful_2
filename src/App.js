@@ -8,6 +8,7 @@ import MainMain from './MainMain/MainMain'
 import NoteMain from './NoteMain/NoteMain'
 import config from './config'
 import AddFolder from './AddFolder/AddFolder';
+import AddNote from './AddNote/AddNote';
 
 class App extends React.Component {
   constructor(props) {
@@ -63,7 +64,7 @@ class App extends React.Component {
       folders : [...folders, folder]
     })
     console.log('folders:', folders)
-    console.log('folder', folder.value)
+    console.log('folder', folder)
   }
 
   handleAddNote = note => {
@@ -158,6 +159,10 @@ class App extends React.Component {
           //     />
           //   )
           // }}
+        />
+        <Route
+          path='/add-note'
+          component={AddNote}
         />
       </>
     )

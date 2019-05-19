@@ -28,7 +28,7 @@ import './MainMain.css'
             <div className="MainMain__button-container">
               <button 
                 className="MainMain__add-note-button"
-                // tag={Link}
+                onClick={() => this.props.history.push('/add-note')}
                 to='/add-note'
                 type='button'
               >
