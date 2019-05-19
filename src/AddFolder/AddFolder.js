@@ -12,8 +12,15 @@ export default class AddFolder extends Component {
           <input type="text" className="addFolder_name"
             name='name' id='name'/>
         </div>
+        <button 
+          type='button' 
+          className='addFolder_cancel'
+          onClick={() => this.props.history.goBack()}  
+        >
+          Cancel
+        </button>
         <button type='submit' className="addFolder_submit">
-          Add
+          Add Folder
         </button>
       </form>
     )
