@@ -7,6 +7,7 @@ import NoteSidebar from './NoteSidebar/NoteSidebar'
 import MainMain from './MainMain/MainMain'
 import NoteMain from './NoteMain/NoteMain'
 import config from './config'
+import AddFolder from './AddFolder/AddFolder';
 
 class App extends React.Component {
   constructor(props) {
@@ -107,6 +108,10 @@ class App extends React.Component {
           //     />
           //   )
           // }}
+        />
+        <Route 
+          path='/add-folder'
+          component={AddFolder}
         />
       </>
     )

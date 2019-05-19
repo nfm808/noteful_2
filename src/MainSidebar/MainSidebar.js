@@ -5,6 +5,8 @@ import './MainSidebar.css'
 
 class MainSidebar extends React.Component {
   static contextType = NotesContext;
+  
+
   render() {
     const { folders, notes } = this.context;
     // console.log( folders, notes);
@@ -30,7 +32,7 @@ class MainSidebar extends React.Component {
         {list}
           <button 
             className="MainSidebar__add-folder-button"
-            // tag={Link}
+            onClick={() => this.props.history.push('/add-folder')}
             to='/add-folder'
             type='button'
           >
