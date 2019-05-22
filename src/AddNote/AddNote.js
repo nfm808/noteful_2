@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import NotesContext from '../notesContext';
 import config from '../config';
+import ValidationError from '../ValidationError/ValidationError';
 
 class AddNote extends Component {
   static contextType = NotesContext;
@@ -153,6 +154,7 @@ class AddNote extends Component {
         <div className='form-group'>
           <label htmlFor='name'>* Name: </label>
           <input type='text' name='name' id='name' onChange={(e) => this.updateName(e.target.value)}/>
+          <ValidationError hasError={this.state.nameValid} message={this.state.validationMessages.name} />
           <label htmlFor='folder'>* Folder: </label>
           <select name='folder' id='folder' onChange={(e) => this.updateFolder(e.target.value)}>
             <option key={0} value={null}>Select a Folder</option>
@@ -160,6 +162,7 @@ class AddNote extends Component {
           </select>
           <label htmlFor='content'>* Content: </label>
           <textarea type="text" rows='5' name='content' id='content' onChange={(e) => this.updateContent(e.target.value)} />
+          <ValidationError hasError={this.state.contentValid} message={this.state.validationMessages.content} />
         </div>
         <button type='button' onClick={() => this.props.history.goBack()} >Cancel</button>
         <button type='submit' disabled={!this.state.formValid}>Submit</button>
