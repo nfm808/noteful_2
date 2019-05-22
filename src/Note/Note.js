@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import NotesContext from '../notesContext';
 import config from '../config'
 import Moment from 'react-moment'
+import PropTypes from 'prop-types'
 
 class Note extends React.Component {
   static defaultProps = {
@@ -61,6 +62,12 @@ class Note extends React.Component {
       </div>
     )
   }
+}
+
+Note.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  modified: PropTypes.string.isRequired,
 }
 
 export default Note

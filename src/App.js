@@ -9,6 +9,7 @@ import NoteMain from './NoteMain/NoteMain'
 import config from './config'
 import AddFolder from './AddFolder/AddFolder';
 import AddNote from './AddNote/AddNote';
+import AppError from './AppError/AppError';
 
 class App extends React.Component {
   constructor(props) {
@@ -17,7 +18,6 @@ class App extends React.Component {
     this.state = {
        notes: null,
        folders: null,
-       err: null
     }
   }
 
@@ -185,10 +185,12 @@ class App extends React.Component {
           <header className="App__header">
             <h1><Link to="/">Noteful</Link></h1>
           </header>
-          <section className="App__main">
-            {this.renderSidebarRoutes()}
-            {this.renderMainRoutes()}
-          </section>
+          <AppError>
+            <section className="App__main">
+              {this.renderSidebarRoutes()}
+              {this.renderMainRoutes()}
+            </section>
+          </AppError>
         </div>
       </NotesContext.Provider>
     )
