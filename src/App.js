@@ -63,12 +63,14 @@ class App extends React.Component {
     this.setState({
       folders : [...folders, folder]
     })
-    console.log('folders:', folders)
-    console.log('folder', folder)
   }
 
   handleAddNote = note => {
-    console.log(note);
+    const { notes } = this.state;
+    this.setState({
+      notes: [...notes, note]
+    })
+
   }
 
   handleDeleteNote = noteId => {
