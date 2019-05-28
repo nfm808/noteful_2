@@ -16,8 +16,8 @@ class App extends React.Component {
     super(props)
   
     this.state = {
-       notes: null,
-       folders: null,
+       notes: [],
+       folders: [],
     }
   }
 

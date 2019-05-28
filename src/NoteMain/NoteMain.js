@@ -18,7 +18,6 @@ class NoteMain extends React.Component {
     const { notes } = this.context
     const { noteId } = this.props.match.params
     const note = findNote(notes, noteId) || {content: ''};
-
     // conditionally render the note section as
     // the props are created undefined before the call
     const noteItem = (!note) ? null 

@@ -119,7 +119,7 @@ class AddNote extends Component {
       folderId: folderId,
       content: content,
       id: this.idGenerator(),
-      modified: new Date()
+      modified: `${new Date()}`
     }
 
     fetch(`${config.API_ENDPOINT}/notes`, {
@@ -153,15 +153,15 @@ class AddNote extends Component {
         <h3>* fields required</h3>
         <div className='form-group'>
           <label htmlFor='name'>* Name: </label>
-          <input type='text' name='name' id='name' onChange={(e) => this.updateName(e.target.value)}/>
+          <input type='text' name='name' id='name' value={this.state.name} onChange={(e) => this.updateName(e.target.value)}/>
           <ValidationError hasError={this.state.nameValid} message={this.state.validationMessages.name} />
           <label htmlFor='folder'>* Folder: </label>
-          <select name='folder' id='folder' onChange={(e) => this.updateFolder(e.target.value)}>
+          <select name='folder' id='folder' value={this.state.folderId} onChange={(e) => this.updateFolder(e.target.value)}>
             <option key={0} value={null}>Select a Folder</option>
             {folderOptions}
           </select>
           <label htmlFor='content'>* Content: </label>
-          <textarea type="text" rows='5' name='content' id='content' onChange={(e) => this.updateContent(e.target.value)} />
+          <textarea type="text" rows='5' name='content' id='content' value={this.state.content} onChange={(e) => this.updateContent(e.target.value)} />
           <ValidationError hasError={this.state.contentValid} message={this.state.validationMessages.content} />
         </div>
         <button type='button' onClick={() => this.props.history.goBack()} >Cancel</button>

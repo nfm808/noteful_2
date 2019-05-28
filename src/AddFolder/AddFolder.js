@@ -97,7 +97,7 @@ export default class AddFolder extends Component {
         <div className="form-group">
           <label htmlFor='name'>Name *</label>
           <input type="text" className="addFolder_name"
-            name='name' id='name' onChange={(e) => this.updateName(e.target.value)} />
+            name='name' id='name' value={this.state.name} onChange={(e) => this.updateName(e.target.value)} />
           <ValidationError hasError={this.state.nameValid} message={this.state.validationMessages.name} />
         </div>
         <button 
